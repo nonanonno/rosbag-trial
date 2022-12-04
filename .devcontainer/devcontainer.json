@@ -1,0 +1,28 @@
+{
+    "name": "rosbag-trial",
+    "build": {
+        "dockerfile": "../docker/Dockerfile",
+        "args": {
+            "ROS_DISTRO": "humble",
+            "DC": "dmd-2.101.0"
+        }
+    },
+    "remoteUser": "vscode",
+    "userEnvProbe": "interactiveShell",
+    "features": {
+        "git": "latest",
+        "common": "latest",
+        "desktop-lite": "latest"
+    },
+    "extensions": [
+        "webfreak.code-d",
+        "pflannery.vscode-versionlens",
+        "vadimcn.vscode-lldb",
+        "editorconfig.editorconfig",
+        "nonanonno.vscode-ros2",
+        "ms-python.python",
+        "ms-vscode.cpptools",
+        "twxs.cmake"
+    ],
+    "postCreateCommand": "bash .devcontainer/postCreateCommand.sh"
+}
