@@ -1,0 +1,3 @@
+# Ignore rosbag which can be created by script
+*
+!.gitignore
