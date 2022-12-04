@@ -8,29 +8,7 @@ from rclpy.serialization import serialize_message
 
 from std_msgs.msg import Int32, String
 
-
-SERIALIZATION_FORMAT = "cdr"
-
-
-def get_rosbag_options(path: str):
-    storage_options = rosbag2_py.StorageOptions(uri=path, storage_id="sqlite3")
-
-    converter_options = rosbag2_py.ConverterOptions(
-        input_serialization_format=SERIALIZATION_FORMAT,
-        output_serialization_format=SERIALIZATION_FORMAT,
-    )
-    return storage_options, converter_options
-
-
-def create_topic(writer: rosbag2_py.SequentialWriter, topic_name: str, topic_type: str):
-    topic = rosbag2_py.TopicMetadata(
-        name=topic_name, type=topic_type, serialization_format=SERIALIZATION_FORMAT
-    )
-    writer.create_topic(topic)
-
-
-def to_timestamp(seconds: int):
-    return seconds * 1000 * 1000 * 1000
+from common import get_rosbag_options, create_topic, to_timestamp
 
 
 def create_int32_bag(bag_path: str):
@@ -45,7 +23,7 @@ def create_int32_bag(bag_path: str):
 
     for i in range(10):
         msg = Int32(data=i)
-        writer.write(topic_name, serialize_message(msg), to_timestamp(i))
+        writer.write(topic_name, serialize_message(msg), to_timestamp(i * 1000))
 
 
 def create_string_bag(bag_path: str):
@@ -60,7 +38,7 @@ def create_string_bag(bag_path: str):
 
     for i in range(10):
         msg = String(data=f"Hello {i}")
-        writer.write(topic_name, serialize_message(msg), to_timestamp(i))
+        writer.write(topic_name, serialize_message(msg), to_timestamp(i * 1000))
 
 
 def create_mix_bag(bag_path: str):
@@ -81,7 +59,7 @@ def create_mix_bag(bag_path: str):
     for i in range(10):
         topic = topics[i % 2]
         msg = topic[2](i)
-        writer.write(topic[0], serialize_message(msg), to_timestamp(i))
+        writer.write(topic[0], serialize_message(msg), to_timestamp(i * 1000))
 
 
 def main():
