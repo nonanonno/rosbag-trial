@@ -206,6 +206,7 @@ class Field:
 
 class Animation:
     def __init__(self, dt: float):
+        # color is bgr8
         balls = [
             Ball(100, 50, 100, 200, 20, (255, 0, 0)),
             Ball(50, 100, 100, 200, 20, (0, 255, 0)),
