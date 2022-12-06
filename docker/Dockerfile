@@ -32,3 +32,8 @@ RUN find /opt/dlang -name activate | xargs echo source | tee -a /etc/bash.bashrc
     && find /opt/dlang -maxdepth 1 -mindepth 1 -type d | xargs chmod 755
 
 RUN ln -sf lld /usr/bin/ld
+
+# Install pip packages
+RUN pip install \
+    jupyter \
+    black
