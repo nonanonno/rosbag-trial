@@ -1,0 +1,7 @@
+name "cdr-reader"
+description "CDR Reader"
+authors "nonanonno"
+copyright "Copyright © 2022, nonanonno"
+license "MIT"
+dependency "d2sqlite3" version="~>1.0.0"
+dependency "tabletool" version="~>0.2.0"

@@ -1,0 +1,12 @@
+{
+	"fileVersion": 1,
+	"versions": {
+		"d2sqlite3": "1.0.0",
+		"dshould": "1.7.1",
+		"east_asian_width": "1.1.0",
+		"prettyprint": "1.0.8",
+		"silly": "1.1.1",
+		"tabletool": "0.2.0",
+		"unit-threaded": "2.1.2"
+	}
+}

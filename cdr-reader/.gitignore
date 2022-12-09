@@ -1,0 +1,16 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/cdr-reader
+cdr-reader.so
+cdr-reader.dylib
+cdr-reader.dll
+cdr-reader.a
+cdr-reader.lib
+cdr-reader-test-*
+*.exe
+*.pdb
+*.o
+*.obj
+*.lst

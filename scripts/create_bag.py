@@ -13,9 +13,10 @@ import numpy as np
 from dataclasses import dataclass
 from typing import Tuple, List
 
-from std_msgs.msg import Int32, String
-from geometry_msgs.msg import Point
-from sensor_msgs.msg import Image
+from builtin_interfaces.msg import Time
+from std_msgs.msg import Int32, String, Header
+from geometry_msgs.msg import Point, PointStamped
+from sensor_msgs.msg import Image, ChannelFloat32
 
 from cv_bridge import CvBridge
 
@@ -127,12 +128,33 @@ def create_mix_bag(bag_path: str):
         x = i * 0.001 * vx
         return Point(x=x, y=sin(x), z=cos(x))
 
+    def stamped_wave_point(i):
+        p = wave_point(i)
+        t = Time(sec=i // 1000, nanosec=(i % 1000) * 1000 * 1000)
+        h = Header(frame_id="test", stamp=t)
+        return PointStamped(header=h, point=p)
+
+    def channel_test_data():
+        return ChannelFloat32(name="hello world", values=[1.0, 2.0, 3.0])
+
     # topic, type, dt, msg callback
     topics = [
         ("/number", "std_msgs/msg/Int32", 0.5, lambda i: Int32(data=i)),
         ("/chatter", "std_msgs/msg/String", 1, lambda i: String(data=f"Hello {i}")),
         ("/point", "geometry_msgs/msg/Point", 0.1, lambda i: wave_point(i)),
+        (
+            "/point_stamped",
+            "geometry_msgs/msg/PointStamped",
+            0.1,
+            lambda i: stamped_wave_point(i),
+        ),
         ("/image", "sensor_msgs/msg/Image", 0.1, lambda _: anim.get_and_update()),
+        (
+            "/channel",
+            "sensor_msgs/msg/ChannelFloat32",
+            1,
+            lambda _: channel_test_data(),
+        ),
     ]
 
     for topic in topics:
